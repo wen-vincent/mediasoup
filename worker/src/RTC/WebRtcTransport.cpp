@@ -156,13 +156,34 @@ namespace RTC
 					uint32_t icePriority = generateIceCandidatePriority(iceLocalPreference);
 
 					// This may throw.
-					RTC::UdpSocket* udpSocket;
-					if (port != 0)
-						udpSocket = new RTC::UdpSocket(this, listenIp.ip, port);
-					else
-						udpSocket = new RTC::UdpSocket(this, listenIp.ip);
+					// RTC::UdpSocket* udpSocket;
+					// if (port != 0)
+					// 	udpSocket = new RTC::UdpSocket(this, listenIp.ip, port);
+					// else
+					// 	udpSocket = new RTC::UdpSocket(this, listenIp.ip);
 
-					this->udpSockets[udpSocket] = listenIp.announcedIp;
+					// this->udpSockets[udpSocket] = listenIp.announcedIp;
+
+					// if (listenIp.announcedIp.empty())
+					// 	this->iceCandidates.emplace_back(udpSocket, icePriority);
+					// else
+					// 	this->iceCandidates.emplace_back(udpSocket, icePriority, listenIp.announcedIp);
+
+					// This may throw.
+					RTC::UdpSocket* udpSocket = NULL;
+					auto iter                 = singleUdpSocket.find(listenIp.ip);
+					if (iter != singleUdpSocket.end())
+					{
+						udpSocket = iter->second;
+					}
+					else
+					{
+						if (port != 0)
+							udpSocket = new RTC::UdpSocket(this, listenIp.ip, port);
+						else
+							udpSocket = new RTC::UdpSocket(this, listenIp.ip);
+						singleUdpSocket[listenIp.ip] = udpSocket;
+					}
 
 					if (listenIp.announcedIp.empty())
 						this->iceCandidates.emplace_back(udpSocket, icePriority);
