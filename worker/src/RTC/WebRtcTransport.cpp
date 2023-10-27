@@ -1,5 +1,5 @@
 #define MS_CLASS "RTC::WebRtcTransport"
-// #define MS_LOG_DEV_LEVEL 3
+#define MS_LOG_DEV_LEVEL 3
 
 #include "RTC/WebRtcTransport.hpp"
 #include "Logger.hpp"
@@ -170,6 +170,7 @@ namespace RTC
 					// 	this->iceCandidates.emplace_back(udpSocket, icePriority, listenIp.announcedIp);
 
 					// This may throw.
+					MS_WARN_DEV("signaltest 1111111111111 port:%d", port);
 					RTC::UdpSocket* udpSocket = NULL;
 					auto iter                 = singleUdpSocket.find(listenIp.ip);
 					if (iter != singleUdpSocket.end())

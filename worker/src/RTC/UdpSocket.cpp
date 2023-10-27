@@ -1,5 +1,5 @@
 #define MS_CLASS "RTC::UdpSocket"
-// #define MS_LOG_DEV_LEVEL 3
+#define MS_LOG_DEV_LEVEL 3
 
 #include "RTC/UdpSocket.hpp"
 #include "Logger.hpp"
@@ -64,7 +64,6 @@ namespace RTC
 
 		// // Notify the reader.
 		// this->listener->OnUdpSocketPacketReceived(this, data, len, addr);
-
 		std::string peer_id;
 		GetPeerId(addr, peer_id);
 
@@ -79,6 +78,7 @@ namespace RTC
 		if (listener)
 		{
 			listener->OnUdpSocketPacketReceived(this, data, len, addr);
+
 			return;
 		}
 
