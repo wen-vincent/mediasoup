@@ -170,7 +170,6 @@ namespace RTC
 					// 	this->iceCandidates.emplace_back(udpSocket, icePriority, listenIp.announcedIp);
 
 					// This may throw.
-					MS_WARN_DEV("signaltest 1111111111111 port:%d", port);
 					RTC::UdpSocket* udpSocket = NULL;
 					auto iter                 = singleUdpSocket.find(listenIp.ip);
 					if (iter != singleUdpSocket.end())
@@ -203,39 +202,18 @@ namespace RTC
 					uint32_t icePriority = generateIceCandidatePriority(iceLocalPreference);
 
 					// This may throw.
-					// RTC::TcpServer* tcpServer;
-					// if (port != 0)
-					// 	tcpServer = new RTC::TcpServer(this, this, listenIp.ip, port);
-					// else
-					// 	tcpServer = new RTC::TcpServer(this, this, listenIp.ip);
-
-					// this->tcpServers[tcpServer] = listenIp.announcedIp;
-
-					// if (listenIp.announcedIp.empty())
-					// 	this->iceCandidates.emplace_back(tcpServer, icePriority);
-					// else
-					// 	this->iceCandidates.emplace_back(tcpServer, icePriority, listenIp.announcedIp);
-
-					// This may throw.
-					RTC::UdpSocket* udpSocket = NULL;
-					auto iter                 = singleUdpSocket.find(listenIp.ip);
-					if (iter != singleUdpSocket.end())
-					{
-						udpSocket = iter->second;
-					}
+					RTC::TcpServer* tcpServer;
+					if (port != 0)
+						tcpServer = new RTC::TcpServer(this, this, listenIp.ip, port);
 					else
-					{
-						if (port != 0)
-							udpSocket = new RTC::UdpSocket(this, listenIp.ip, port);
-						else
-							udpSocket = new RTC::UdpSocket(this, listenIp.ip);
-						singleUdpSocket[listenIp.ip] = udpSocket;
-					}
+						tcpServer = new RTC::TcpServer(this, this, listenIp.ip);
+
+					this->tcpServers[tcpServer] = listenIp.announcedIp;
 
 					if (listenIp.announcedIp.empty())
-						this->iceCandidates.emplace_back(udpSocket, icePriority);
+						this->iceCandidates.emplace_back(tcpServer, icePriority);
 					else
-						this->iceCandidates.emplace_back(udpSocket, icePriority, listenIp.announcedIp);
+						this->iceCandidates.emplace_back(tcpServer, icePriority, listenIp.announcedIp);
 				}
 
 				// Decrement initial ICE local preference for next IP.

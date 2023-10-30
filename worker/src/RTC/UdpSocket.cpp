@@ -64,6 +64,8 @@ namespace RTC
 
 		// // Notify the reader.
 		// this->listener->OnUdpSocketPacketReceived(this, data, len, addr);
+
+		//
 		std::string peer_id;
 		GetPeerId(addr, peer_id);
 
@@ -78,15 +80,23 @@ namespace RTC
 		if (listener)
 		{
 			listener->OnUdpSocketPacketReceived(this, data, len, addr);
-
 			return;
 		}
 
+		// 解包 拿到ip和端口
 		RTC::StunPacket* packet = RTC::StunPacket::Parse(data, len);
 
 		if (!packet)
 		{
-			MS_WARN_DEV("ignoring wrong STUN packet received");
+			if (!this->listener)
+			{
+				MS_ERROR("no listener set");
+
+				return;
+			}
+
+			// Notify the reader.
+			this->listener->OnUdpSocketPacketReceived(this, data, len, addr);
 			return;
 		}
 		std::string username = packet->GetUsername();
