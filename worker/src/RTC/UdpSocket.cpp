@@ -27,6 +27,7 @@ namespace RTC
 	    fixedPort(true)
 	{
 		MS_TRACE();
+		this->port = port;
 	}
 
 	UdpSocket::~UdpSocket()
@@ -55,17 +56,20 @@ namespace RTC
 	{
 		MS_TRACE();
 
-		// if (!this->listener)
-		// {
-		// 	MS_ERROR("no listener set");
+		if (!this->listener)
+		{
+			MS_ERROR("no listener set");
 
-		// 	return;
-		// }
+			return;
+		}
 
-		// // Notify the reader.
-		// this->listener->OnUdpSocketPacketReceived(this, data, len, addr);
+		// Notify the reader.
+		if (!this->port)
+		{
+			this->listener->OnUdpSocketPacketReceived(this, data, len, addr);
+			return;
+		}
 
-		//
 		std::string peer_id;
 		GetPeerId(addr, peer_id);
 
@@ -88,15 +92,6 @@ namespace RTC
 
 		if (!packet)
 		{
-			if (!this->listener)
-			{
-				MS_ERROR("no listener set");
-
-				return;
-			}
-
-			// Notify the reader.
-			this->listener->OnUdpSocketPacketReceived(this, data, len, addr);
 			return;
 		}
 		std::string username = packet->GetUsername();

@@ -37,6 +37,7 @@ namespace RTC
 		// Passed by argument.
 		Listener* listener{ nullptr };
 		bool fixedPort{ false };
+		uint16_t port{0};
 		std::unordered_map<std::string, RTC::UdpSocket::Listener*> mapTransportPeerId;
 		std::unordered_map<std::string, RTC::UdpSocket::Listener*> mapTransportName;
 	};
