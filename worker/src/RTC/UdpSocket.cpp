@@ -18,6 +18,7 @@ namespace RTC
 	  : // This may throw.
 	    ::UdpSocketHandler::UdpSocketHandler(PortManager::BindUdp(ip)), listener(listener)
 	{
+		
 		MS_TRACE();
 	}
 
@@ -66,6 +67,7 @@ namespace RTC
 		// Notify the reader.
 		if (!this->port)
 		{
+			MS_ERROR("no listener set 33333333333333");
 			this->listener->OnUdpSocketPacketReceived(this, data, len, addr);
 			return;
 		}
