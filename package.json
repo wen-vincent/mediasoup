@@ -49,7 +49,7 @@
   },
   "scripts": {
     "prepare": "node npm-scripts.js prepare",
-    "postinstall": "node npm-scripts.js postinstall",
+    "postinstall2": "node npm-scripts.js postinstall",
     "build": "cp -r /mnt/hgfs/VMShare/mediasoup_deps/ /home/viper/.tmp/ && node npm-scripts.js worker:build && cp worker/out/Release/mediasoup-worker  ~/worker/kingchat/server/node_modules/mediasoup/worker/out/Release/mediasoup-worker -f",
     "typescript:build": "node npm-scripts.js typescript:build",
     "typescript:watch": "node npm-scripts.js typescript:watch",
