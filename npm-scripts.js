@@ -252,7 +252,7 @@ function cleanWorker()
 	// Clean build artifacts except `mediasoup-worker`.
 	executeCmd(`${MAKE} clean-build -C worker`);
 	// Clean downloaded dependencies.
-	// executeCmd(`${MAKE} clean-subprojects -C worker`);
+	executeCmd(`${MAKE} clean-subprojects -C worker`);
 	// Clean PIP/Meson/Ninja.
 	executeCmd(`${MAKE} clean-pip -C worker`);
 
