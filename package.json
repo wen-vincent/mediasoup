@@ -49,6 +49,7 @@
   },
   "scripts": {
     "prepare": "node npm-scripts.js prepare",
+    "build":"cp -r mediasoup_deps worker/out && node npm-scripts.js postinstall",
     "postinstall": "node npm-scripts.js postinstall",
     "typescript:build": "node npm-scripts.js typescript:build",
     "typescript:watch": "node npm-scripts.js typescript:watch",

@@ -1,8 +1,8 @@
 [wrap-file]
 directory = abseil-cpp-20210324.2
-source_filename = /home/viper/mediasoup_deps/abseil-cpp-20210324.2.tar.gz
+source_filename = /home/viper/source/mediasoup/worker/out/mediasoup_deps/abseil-cpp-20210324.2.tar.gz
 source_hash = 59b862f50e710277f8ede96f083a5bb8d7c9595376146838b9580be90374ee1f
-patch_filename = /home/viper/mediasoup_deps/abseil-cpp_20210324.2-4_patch.zip
+patch_filename = /home/viper/source/mediasoup/worker/out/mediasoup_deps/abseil-cpp_20210324.2-4_patch.zip
 patch_hash = 006fac3e9bade459816dda05e0d287aa0e6d754b1a1fed0db7fcdd33f96dc628
 
 [provide]
