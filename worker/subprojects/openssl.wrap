@@ -1,8 +1,8 @@
 [wrap-file]
 directory = openssl-3.0.7
-source_filename = /home/viper/source/mediasoup/worker/out/mediasoup_deps/openssl-3.0.72.tar.gz
+source_filename = ../../out/mediasoup_deps/openssl-3.0.72.tar.gz
 source_hash = 83049d042a260e696f62406ac5c08bf706fd84383f945cf21bd61e9ed95c396e
-patch_filename = /home/viper/source/mediasoup/worker/out/mediasoup_deps/openssl_3.0.7-1_patch.zip
+patch_filename = ../../out/mediasoup_deps/openssl_3.0.7-1_patch.zip
 patch_hash = 8f04d911dc22d1dddc6a192ab27d6d8275976a252bd9c73e09f95f1f927e42b5
 wrapdb_version = 3.0.7-1
 
