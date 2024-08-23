@@ -6,7 +6,6 @@ import { supportedRtpCapabilities } from './supportedRtpCapabilities';
 import { RtpCapabilities } from './RtpParameters';
 import * as types from './types';
 import { AppData } from './types';
-
 /**
  * Expose all types.
  */
@@ -15,8 +14,7 @@ export { types };
 /**
  * Expose mediasoup version.
  */
-export const version = '__MEDIASOUP_VERSION__';
-
+export const version: string = require('../../package.json').version;
 /**
  * Expose parseScalabilityMode() function.
  */
@@ -25,9 +23,9 @@ export { parse as parseScalabilityMode } from './scalabilityModes';
 const logger = new Logger();
 
 export type ObserverEvents =
-{
-	newworker: [Worker];
-};
+	{
+		newworker: [Worker];
+	};
 
 const observer = new EnhancedEventEmitter<ObserverEvents>();
 
@@ -50,12 +48,10 @@ export async function createWorker<WorkerAppData extends AppData = AppData>(
 		libwebrtcFieldTrials,
 		appData
 	}: WorkerSettings<WorkerAppData> = {}
-): Promise<Worker<WorkerAppData>>
-{
+): Promise<Worker<WorkerAppData>> {
 	logger.debug('createWorker()');
 
-	if (appData && typeof appData !== 'object')
-	{
+	if (appData && typeof appData !== 'object') {
 		throw new TypeError('if given, appData must be an object');
 	}
 
@@ -71,10 +67,8 @@ export async function createWorker<WorkerAppData extends AppData = AppData>(
 			appData
 		});
 
-	return new Promise((resolve, reject) =>
-	{
-		worker.on('@success', () =>
-		{
+	return new Promise((resolve, reject) => {
+		worker.on('@success', () => {
 			// Emit observer event.
 			observer.safeEmit('newworker', worker);
 
@@ -88,7 +82,6 @@ export async function createWorker<WorkerAppData extends AppData = AppData>(
 /**
  * Get a cloned copy of the mediasoup supported RTP capabilities.
  */
-export function getSupportedRtpCapabilities(): RtpCapabilities
-{
+export function getSupportedRtpCapabilities(): RtpCapabilities {
 	return utils.clone(supportedRtpCapabilities) as RtpCapabilities;
 }
