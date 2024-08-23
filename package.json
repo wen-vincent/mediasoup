@@ -1,6 +1,6 @@
 {
   "name": "mediasoup",
-  "version": "3.11.25",
+  "version": "3.11.26",
   "description": "Cutting Edge WebRTC Video Conferencing",
   "contributors": [
     "Iñaki Baz Castillo <ibc@aliax.net> (https://inakibaz.me)",
@@ -49,7 +49,7 @@
   },
   "scripts": {
     "prepare": "node npm-scripts.js prepare",
-    "postinstall2": "node npm-scripts.js postinstall",
+    "postinstall": "node npm-scripts.js postinstall",
     "build": "cp -r /mnt/hgfs/VMShare/mediasoup_deps/ /home/viper/.tmp/ && node npm-scripts.js worker:build && cp worker/out/Release/mediasoup-worker  ~/worker/kingchat/server/node_modules/mediasoup/worker/out/Release/mediasoup-worker -f",
     "build2":"cp -r ../build_deps/pip worker/out && cp -r ../mediasoup_deps worker/out &&node npm-scripts.js postinstall",
     "typescript:build": "node npm-scripts.js typescript:build",
