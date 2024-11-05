@@ -3,9 +3,6 @@ import * as os from 'node:os';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { execSync } from 'node:child_process';
-import fetch from 'node-fetch';
-import * as tar from 'tar';
-import * as ini from 'ini';
 
 const PKG = JSON.parse(
 	fs.readFileSync('./package.json', { encoding: 'utf-8' })
@@ -102,24 +99,7 @@ async function run() {
 			// env is given, or if mediasoup package is being installed via git+ssh
 			// (instead of via npm), and if MEDIASOUP_FORCE_PREBUILT_WORKER_DOWNLOAD env is
 			// not set, then skip mediasoup-worker prebuilt download.
-			else if (
-				(process.env.MEDIASOUP_LOCAL_DEV ||
-					process.env.MEDIASOUP_SKIP_WORKER_PREBUILT_DOWNLOAD ||
-					process.env.npm_package_resolved?.startsWith('git+ssh://')) &&
-				!process.env.MEDIASOUP_FORCE_WORKER_PREBUILT_DOWNLOAD
-			) {
-				logInfo(
-					'skipping mediasoup-worker prebuilt download, building it locally'
-				);
-
-				buildWorker();
-
-				if (!process.env.MEDIASOUP_LOCAL_DEV) {
-					cleanWorkerArtifacts();
-				}
-			}
-			// Attempt to download a prebuilt binary. Fallback to building locally.
-			else if (!(await downloadPrebuiltWorker())) {
+			else {
 				logInfo(
 					`couldn't fetch any mediasoup-worker prebuilt binary, building it locally`
 				);
