@@ -3,9 +3,9 @@ import * as os from 'node:os';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { execSync } from 'node:child_process';
-import fetch from 'node-fetch';
-import * as tar from 'tar';
-import * as ini from 'ini';
+// import fetch from 'node-fetch';
+// import * as tar from 'tar';
+// import * as ini from 'ini';
 
 const PKG = JSON.parse(
 	fs.readFileSync('./package.json', { encoding: 'utf-8' })

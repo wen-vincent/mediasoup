@@ -108,6 +108,7 @@ namespace RTC
 		absl::flat_hash_map<uint64_t, RTC::WebRtcTransport*> mapTupleWebRtcTransport;
 		// Whether the destructor has been called.
 		bool closing{ false };
+		std::vector< std::string > Explode(const std::string& data, const std::string& delimiters);
 	};
 } // namespace RTC
 

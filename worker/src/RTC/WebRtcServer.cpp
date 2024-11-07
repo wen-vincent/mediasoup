@@ -1,5 +1,5 @@
 #define MS_CLASS "RTC::WebRtcServer"
-// #define MS_LOG_DEV_LEVEL 3
+#define MS_LOG_DEV_LEVEL 3
 
 #include "RTC/WebRtcServer.hpp"
 #include "Logger.hpp"
@@ -127,7 +127,11 @@ namespace RTC
 						  portRangeHash);
 					}
 
-					this->udpSocketOrTcpServers.emplace_back(udpSocket, nullptr, announcedAddress);
+					auto dem_res = Explode(announcedAddress,","); // space or comma
+					for (auto ip : dem_res) {
+						this->udpSocketOrTcpServers.emplace_back(udpSocket, nullptr, ip);
+					} ;
+					
 
 					if (listenInfo->sendBufferSize() != 0)
 					{
@@ -184,7 +188,11 @@ namespace RTC
 						  portRangeHash);
 					}
 
-					this->udpSocketOrTcpServers.emplace_back(nullptr, tcpServer, announcedAddress);
+					auto dem_res = Explode(announcedAddress,","); // space or comma
+					for (auto ip : dem_res) {
+						this->udpSocketOrTcpServers.emplace_back(nullptr, tcpServer, ip);
+					} ;
+					// this->udpSocketOrTcpServers.emplace_back(nullptr, tcpServer, announcedAddress);
 
 					if (listenInfo->sendBufferSize() != 0)
 					{
@@ -610,4 +618,17 @@ namespace RTC
 
 		OnPacketReceived(&tuple, data, len);
 	}
+
+	std::vector< std::string > WebRtcServer::Explode(const std::string& data, const std::string& delimiters) {
+    auto is_delim = [&](auto & c) { return delimiters.find(c) != std::string::npos; };
+    std::vector< std::string > result;
+    for (std::string::size_type i(0), len(data.length()), pos(0); i <= len; i++) {
+        if (is_delim(data[i]) || i == len) {
+            auto tok = data.substr(pos, i - pos);
+            if ( !tok.empty() )
+                result.push_back( tok );
+            pos = i + 1;
+        }
+    } return result;
+}
 } // namespace RTC
